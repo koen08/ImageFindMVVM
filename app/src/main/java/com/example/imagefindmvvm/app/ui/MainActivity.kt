@@ -26,14 +26,12 @@ class MainActivity : AppCompatActivity() {
         recyclerView?.layoutManager = LinearLayoutManager(this)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
-        viewModel.listImageLiveData.observe(this, {
-            glideImageList(it)
-        })
+        viewModel.listImageLiveData.observe(this, ::glideImageList)
 
         viewModel.getImageListByName("android")
     }
 
-    fun glideImageList(imageList: List<ImageDao>) {
+    private fun glideImageList(imageList: List<ImageDao>) {
         val adapter = ImageListAdapter(imageList)
         recyclerView?.adapter = adapter
     }
